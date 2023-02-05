@@ -19,12 +19,14 @@ function jsonResponseSuccess($data) {
     exit();
 }
 
-if (isset($_GET['random-id'])) {
+if (isset($_GET['random_id'])) {
     $rand = rand(1, 4);
     jsonResponseSuccess([ 'success' => true, 'randomId' => $rand ]);
 }
 
 if (isset($_GET['image_id'])) {
+    $imageId = (int) $_GET['image_id'];
+
     $stmt = $conn->prepare("SELECT SUM(view_count) as views from `logs` WHERE image_mark = ?");
     $stmt->bind_param('i', $imageId);
     $stmt->execute();
